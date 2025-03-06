@@ -2,27 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:home_finance_management/components/save_income.dart';
 
 class SaveActualIncome extends StatefulWidget {
-  final VoidCallback updateState;
+  final VoidCallback onSave;
 
-  const SaveActualIncome({super.key, required this.updateState});
+  const SaveActualIncome({super.key, required this.onSave});
 
   @override
-  State<SaveActualIncome> createState() => _SaveActualIncomeState(updateState);
+  State<SaveActualIncome> createState() => _SaveActualIncomeState();
 }
 
 class _SaveActualIncomeState extends State<SaveActualIncome> {
-  late VoidCallback updateState;
-
-  _SaveActualIncomeState(updateState);
-
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: () {
         saveIncome(context);
-        setState(() {
-          updateState();
-        }); // Обновление состояния после сохранения
+        widget.onSave(); // Вызов callback-функции для обновления состояния
       },
       child: const Text('Сохранить'),
     );

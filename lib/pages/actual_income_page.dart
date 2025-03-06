@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:home_finance_management/components/delete_income.dart';
-import 'package:home_finance_management/components/edit_income.dart';
+import 'package:home_finance_management/components/list_tile_sample.dart';
 import 'package:home_finance_management/components/save_actual_income.dart';
 import 'package:home_finance_management/components/select_date_of_income.dart';
-import 'package:intl/intl.dart';
 import '../components/drawer_sample.dart';
 import '../components/filter_incomes.dart';
 import '../components/text_field_sample.dart';
@@ -63,42 +61,12 @@ class _ActualIncomePage extends State<ActualIncomePage> {
                 controller: incomeController,
                 keyboardType: TextInputType.number),
             const SelectDateOfIncome(),
-            SaveActualIncome(updateState: updateState,),
-            // ElevatedButton(
-            //   onPressed: () {
-            //     saveIncome(context);
-            //     setState(() {}); // Обновление состояния после сохранения
-            //   },
-            //   child: const Text('Сохранить'),
-            // ),
+            SaveActualIncome(onSave: updateState), // Передача callback-функции
             Expanded(
               child: ListView.builder(
                 itemCount: filteredIncomes.length,
                 itemBuilder: (context, index) {
-                  final income = filteredIncomes[index];
-                  return ListTile(
-                    title: Text('${income.sum} рублей'),
-                    subtitle: Text(DateFormat('d.M.y').format(income.date)),
-                    trailing: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        IconButton(
-                          icon: const Icon(Icons.edit),
-                          onPressed: () {
-                            editIncome(index, context, updateState);
-                          },
-                        ),
-                        IconButton(
-                          icon: const Icon(Icons.delete),
-                          onPressed: () {
-                            deleteIncome(index, updateState);
-                            setState(
-                                () {}); // Обновление состояния после удаления
-                          },
-                        ),
-                      ],
-                    ),
-                  );
+                  return ListTileSample(index: index, onSave: updateState);
                 },
               ),
             ),
