@@ -107,7 +107,7 @@ class _ActualIncomePage extends State<ActualIncomePage> {
                           onPressed: () {
                             deleteIncome(index, updateState);
                             setState(
-                                    () {}); // Обновление состояния после удаления
+                                () {}); // Обновление состояния после удаления
                           },
                         ),
                       ],
@@ -128,7 +128,7 @@ class _ActualIncomePage extends State<ActualIncomePage> {
                         initialDate: DateTime.now(),
                         firstDate: DateTime(2000),
                         lastDate:
-                        DateTime.now(), // Ограничение до сегодняшней даты
+                            DateTime.now(), // Ограничение до сегодняшней даты
                       );
                       if (picked != null) {
                         setState(() {
@@ -147,7 +147,7 @@ class _ActualIncomePage extends State<ActualIncomePage> {
                         initialDate: DateTime.now(),
                         firstDate: DateTime(2000),
                         lastDate:
-                        DateTime.now(), // Ограничение до сегодняшней даты
+                            DateTime.now(), // Ограничение до сегодняшней даты
                       );
                       if (picked != null) {
                         setState(() {

@@ -33,7 +33,7 @@ class DrawerSample extends StatelessWidget {
             child: Align(
               alignment: Alignment.bottomCenter,
               child: Text(
-                'Категории',
+                'Меню',
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
             ),

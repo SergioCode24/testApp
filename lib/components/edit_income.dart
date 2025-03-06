@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:home_finance_management/components/text_button_actual_income_sample.dart';
 import 'package:home_finance_management/components/text_field_sample.dart';
-import '../model/list_actual_income.dart';
+import 'package:home_finance_management/model/list_actual_income.dart';
+import '../model/edit_incomes.dart';
 import 'filter_incomes.dart';
 
 void editIncome(int index, BuildContext context, VoidCallback onUpdate) {
-  final income = filteredIncomes[index];
-  final TextEditingController sumController =
-      TextEditingController(text: income.sum.toString());
-  DateTime? selectedDate = income.date;
-
+  editIncomes[0].sum.text = filteredIncomes[index].sum.toString();
+  editIncomes[0].selectedDate = filteredIncomes[index].date;
   showDialog(
     context: context,
     builder: (context) {
@@ -19,19 +17,19 @@ void editIncome(int index, BuildContext context, VoidCallback onUpdate) {
           mainAxisSize: MainAxisSize.min,
           children: [
             TextFieldSample(
-                controller: sumController,
+                controller: editIncomes[0].sum,
                 labelText: 'Введите доход',
                 keyboardType: TextInputType.number),
             ElevatedButton(
               onPressed: () async {
                 final DateTime? picked = await showDatePicker(
                   context: context,
-                  initialDate: selectedDate ?? DateTime.now(),
+                  initialDate: filteredIncomes[index].date,
                   firstDate: DateTime(2000),
                   lastDate: DateTime.now(), // Ограничение до сегодняшней даты
                 );
                 if (picked != null) {
-                  selectedDate = picked;
+                  editIncomes[0].selectedDate = picked;
                 }
               },
               child: const Text('Выбрать дату'),
@@ -46,10 +44,7 @@ void editIncome(int index, BuildContext context, VoidCallback onUpdate) {
             child: const Text('Отмена'),
           ),
           TextButtonActualIncomeSample(
-            sumController: sumController,
-            selectedDate: selectedDate,
             index: index,
-            income: income,
             onSave: () {
               filterIncomes(onUpdate);
               onUpdate(); // Вызов callback-функции для обновления состояния
