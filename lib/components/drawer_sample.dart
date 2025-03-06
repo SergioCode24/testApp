@@ -28,9 +28,21 @@ class DrawerSample extends StatelessWidget {
     return Drawer(
       child: Column(
         children: [
+          const SizedBox(
+            height: 40,
+            child: Align(
+              alignment: Alignment.bottomCenter,
+              child: Text(
+                'Категории',
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              ),
+            ),
+          ),
           ListTile(
             leading: const Icon(Icons.trending_up),
-            title: const Text('Фактические доходы'),
+            title: const Text(
+              'Фактические доходы',
+            ),
             onTap: () {
               if (actualIncomePage == true) {
                 Navigator.pushReplacement(
@@ -46,7 +58,9 @@ class DrawerSample extends StatelessWidget {
           ),
           ListTile(
             leading: const Icon(Icons.trending_down),
-            title: const Text('Фактические расходы'),
+            title: const Text(
+              'Фактические расходы',
+            ),
             onTap: () {
               if (actualExpensesPage == true) {
                 Navigator.pushReplacement(
@@ -62,7 +76,9 @@ class DrawerSample extends StatelessWidget {
           ),
           ListTile(
             leading: const Icon(Icons.schedule),
-            title: const Text('Запланированные доходы'),
+            title: const Text(
+              'Запланированные доходы',
+            ),
             onTap: () {
               if (plannedIncomePage == true) {
                 Navigator.pushReplacement(
@@ -78,7 +94,9 @@ class DrawerSample extends StatelessWidget {
           ),
           ListTile(
             leading: const Icon(Icons.schedule),
-            title: const Text('Запланированные расходы'),
+            title: const Text(
+              'Запланированные расходы',
+            ),
             onTap: () {
               if (plannedExpensesPage == true) {
                 Navigator.pushReplacement(
@@ -94,7 +112,9 @@ class DrawerSample extends StatelessWidget {
           ),
           ListTile(
             leading: const Icon(Icons.bar_chart),
-            title: const Text('Статистика'),
+            title: const Text(
+              'Статистика',
+            ),
             onTap: () {
               if (statisticsPage == true) {
                 Navigator.pushReplacement(
@@ -110,7 +130,9 @@ class DrawerSample extends StatelessWidget {
           ),
           ListTile(
             leading: const Icon(Icons.history),
-            title: const Text('История'),
+            title: const Text(
+              'История',
+            ),
             onTap: () {
               if (historyPage == true) {
                 Navigator.pushReplacement(
