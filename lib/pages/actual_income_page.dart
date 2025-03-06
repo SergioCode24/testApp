@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:home_finance_management/components/delete_income.dart';
 import 'package:home_finance_management/components/edit_income.dart';
-import 'package:home_finance_management/components/save_income.dart';
+import 'package:home_finance_management/components/save_actual_income.dart';
+import 'package:home_finance_management/components/select_date_of_income.dart';
 import 'package:intl/intl.dart';
 import '../components/drawer_sample.dart';
 import '../components/filter_incomes.dart';
 import '../components/text_field_sample.dart';
+import '../model/controller.dart';
 import '../model/filter.dart';
 import '../model/list_actual_income.dart';
 
@@ -18,8 +20,6 @@ class ActualIncomePage extends StatefulWidget {
 
 class _ActualIncomePage extends State<ActualIncomePage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  final TextEditingController _incomeController = TextEditingController();
-  DateTime? _selectedDate;
 
   void updateState() {
     setState(() {});
@@ -60,31 +60,17 @@ class _ActualIncomePage extends State<ActualIncomePage> {
           children: [
             TextFieldSample(
                 labelText: 'Введите доход',
-                controller: _incomeController,
+                controller: incomeController,
                 keyboardType: TextInputType.number),
-            ElevatedButton(
-              onPressed: () async {
-                final DateTime? picked = await showDatePicker(
-                  context: context,
-                  initialDate: DateTime.now(),
-                  firstDate: DateTime(2024),
-                  lastDate: DateTime.now(), // Ограничение до сегодняшней даты
-                );
-                if (picked != null && picked != _selectedDate) {
-                  setState(() {
-                    _selectedDate = picked;
-                  });
-                }
-              },
-              child: const Text('Выбрать дату'),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                saveIncome(_selectedDate, _incomeController, context);
-                setState(() {}); // Обновление состояния после сохранения
-              },
-              child: const Text('Сохранить'),
-            ),
+            const SelectDateOfIncome(),
+            SaveActualIncome(updateState: updateState,),
+            // ElevatedButton(
+            //   onPressed: () {
+            //     saveIncome(context);
+            //     setState(() {}); // Обновление состояния после сохранения
+            //   },
+            //   child: const Text('Сохранить'),
+            // ),
             Expanded(
               child: ListView.builder(
                 itemCount: filteredIncomes.length,
