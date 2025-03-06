@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:home_finance_management/components/filter_buttons.dart';
 import 'package:home_finance_management/components/list_tile_sample.dart';
 import 'package:home_finance_management/components/save_actual_income.dart';
 import 'package:home_finance_management/components/select_date_of_income.dart';
 import '../components/drawer_sample.dart';
-import '../components/filter_incomes.dart';
 import '../components/text_field_sample.dart';
 import '../model/controller.dart';
-import '../model/filter.dart';
 import '../model/list_actual_income.dart';
 
 class ActualIncomePage extends StatefulWidget {
@@ -61,7 +60,7 @@ class _ActualIncomePage extends State<ActualIncomePage> {
                 controller: incomeController,
                 keyboardType: TextInputType.number),
             const SelectDateOfIncome(),
-            SaveActualIncome(onSave: updateState), // Передача callback-функции
+            SaveActualIncome(onSave: updateState),
             Expanded(
               child: ListView.builder(
                 itemCount: filteredIncomes.length,
@@ -70,65 +69,7 @@ class _ActualIncomePage extends State<ActualIncomePage> {
                 },
               ),
             ),
-            if (actualIncomes.isNotEmpty)
-              Wrap(
-                alignment: WrapAlignment.center,
-                spacing: 8.0, // Расстояние между элементами по горизонтали
-                children: [
-                  ElevatedButton(
-                    onPressed: () async {
-                      final DateTime? picked = await showDatePicker(
-                        context: context,
-                        initialDate: DateTime.now(),
-                        firstDate: DateTime(2000),
-                        lastDate:
-                            DateTime.now(), // Ограничение до сегодняшней даты
-                      );
-                      if (picked != null) {
-                        setState(() {
-                          filterDates[0].startDate = picked;
-                          filterIncomes(updateState);
-                        });
-                      }
-                    },
-                    child: const Text('Выбрать начальную дату',
-                        textAlign: TextAlign.center),
-                  ),
-                  ElevatedButton(
-                    onPressed: () async {
-                      final DateTime? picked = await showDatePicker(
-                        context: context,
-                        initialDate: DateTime.now(),
-                        firstDate: DateTime(2000),
-                        lastDate:
-                            DateTime.now(), // Ограничение до сегодняшней даты
-                      );
-                      if (picked != null) {
-                        setState(() {
-                          filterDates[0].endDate = picked;
-                          filterIncomes(updateState);
-                        });
-                      }
-                    },
-                    child: const Text('Выбрать конечную дату',
-                        textAlign: TextAlign.center),
-                  ),
-                  ElevatedButton(
-                    onPressed: () {
-                      setState(() {
-                        filteredIncomes = actualIncomes;
-                        filterDates = [
-                          Filter(
-                              startDate: DateTime(2000, 1, 1),
-                              endDate: DateTime.now())
-                        ];
-                      });
-                    },
-                    child: const Text('Сбросить фильтр',
-                        textAlign: TextAlign.center),
-                  ),
-                ],
-              ),
+            if (actualIncomes.isNotEmpty) FilterButtons(onSave: updateState),
           ],
         ),
       ),

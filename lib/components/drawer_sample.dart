@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:home_finance_management/components/menu_sized_box.dart';
 import '../pages/actual_expenses_page.dart';
 import '../pages/actual_income_page.dart';
 import '../pages/history_page.dart';
@@ -28,16 +29,7 @@ class DrawerSample extends StatelessWidget {
     return Drawer(
       child: Column(
         children: [
-          const SizedBox(
-            height: 40,
-            child: Align(
-              alignment: Alignment.bottomCenter,
-              child: Text(
-                'Меню',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-              ),
-            ),
-          ),
+          const MenuSizedBox(),
           ListTile(
             leading: const Icon(Icons.trending_up),
             title: const Text(
